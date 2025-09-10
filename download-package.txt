@@ -1,0 +1,40 @@
+===========================================
+SENSATIONS TO GO PLANNER - DOWNLOAD GUIDE
+===========================================
+
+📁 BENODIGDE BESTANDEN VOOR UW WEBSERVER:
+
+1. install.php (HOOFDBESTAND)
+2. README-INSTALLATIE.md (HANDLEIDING)  
+3. deployment-guide.md (TECHNISCHE GIDS)
+
+===========================================
+INSTALLATIE INSTRUCTIES:
+===========================================
+
+STAP 1: Maak install.php aan
+- Kopieer de volledige install.php code hieronder
+- Sla op als install.php op uw webserver
+
+STAP 2: Upload naar webserver
+- Via FTP, cPanel File Manager, of SSH
+- Plaats in public_html, www, of htdocs directory
+
+STAP 3: Start installatie
+- Open https://uwdomain.nl/install.php
+- Volg de 6-stappen wizard
+- Systeem installeert zichzelf automatisch
+
+STAP 4: Beveiliging
+- Verwijder install.php na voltooiing
+- Start met workforce management!
+
+===========================================
+ONDERSTEUNING:
+===========================================
+
+📧 Email: support@sensationstogo.nl
+🌐 Website: https://sensationstogo.nl
+📱 Mobile: Volledig responsive systeem
+
+===========================================
