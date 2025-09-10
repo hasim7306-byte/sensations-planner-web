@@ -100,8 +100,21 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link to="/dashboard" className="text-xl font-bold flex-shrink-0">
-              Senations To Go
+            <Link to="/dashboard" className="flex items-center space-x-3 flex-shrink-0">
+              <img 
+                src="/sensations-logo.png" 
+                alt="Sensations To Go" 
+                className="h-10 w-auto"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                }}
+              />
+              <span className="text-xl font-bold hidden sm:block">
+                Sensations To Go
+              </span>
+              <span className="text-lg font-bold sm:hidden">
+                Planner
+              </span>
             </Link>
             
             {/* Desktop Navigation */}
