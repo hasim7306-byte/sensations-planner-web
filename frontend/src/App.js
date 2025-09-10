@@ -50,22 +50,6 @@ const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (userData) => {
-    try {
-      const response = await axios.post(`${API}/auth/register`, userData);
-      const { access_token, user: newUser } = response.data;
-      
-      localStorage.setItem('token', access_token);
-      setToken(access_token);
-      setUser(newUser);
-      axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-      
-      return { success: true };
-    } catch (error) {
-      return { success: false, error: error.response?.data?.detail || 'Registration failed' };
-    }
-  };
-
   const logout = () => {
     localStorage.removeItem('token');
     setToken(null);
@@ -74,7 +58,7 @@ const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, token, login, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
