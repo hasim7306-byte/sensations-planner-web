@@ -261,7 +261,7 @@ const LoginPage = () => {
               name="email"
               type="email"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
               placeholder="E-mailadres"
               value={formData.email}
               onChange={handleChange}
