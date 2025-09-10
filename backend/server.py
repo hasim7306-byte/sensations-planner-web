@@ -266,6 +266,74 @@ async def get_users(current_user: User = Depends(get_current_user)):
     users = await db.users.find({"is_active": True}).to_list(1000)
     return [User(**parse_from_mongo(user)) for user in users]
 
+@api_router.post("/users", response_model=User)
+async def create_user_by_admin(user_data: UserCreate, current_user: User = Depends(get_current_user)):
+    if current_user.role != UserRole.ADMIN:
+        raise HTTPException(status_code=403, detail="Only admins can create users")
+    
+    # Check if user exists
+    existing_user = await db.users.find_one({"email": user_data.email})
+    if existing_user:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    
+    # Hash password
+    hashed_password = get_password_hash(user_data.password)
+    
+    # Create user
+    user_dict = user_data.dict()
+    user_dict.pop("password")
+    user = User(**user_dict)
+    
+    # Store in database
+    user_mongo = prepare_for_mongo(user.dict())
+    user_mongo["password_hash"] = hashed_password
+    await db.users.insert_one(user_mongo)
+    
+    return user
+
+@api_router.put("/users/{user_id}", response_model=User)
+async def update_user(user_id: str, user_data: dict, current_user: User = Depends(get_current_user)):
+    if current_user.role != UserRole.ADMIN:
+        raise HTTPException(status_code=403, detail="Only admins can update users")
+    
+    # Find user
+    existing_user = await db.users.find_one({"id": user_id})
+    if not existing_user:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    # Update user
+    update_data = {}
+    allowed_fields = ["name", "email", "role", "department", "phone", "hourly_rate", "skills", "is_active"]
+    
+    for field in allowed_fields:
+        if field in user_data:
+            update_data[field] = user_data[field]
+    
+    if update_data:
+        await db.users.update_one({"id": user_id}, {"$set": update_data})
+    
+    # Return updated user
+    updated_user = await db.users.find_one({"id": user_id})
+    return User(**parse_from_mongo(updated_user))
+
+@api_router.delete("/users/{user_id}")
+async def deactivate_user(user_id: str, current_user: User = Depends(get_current_user)):
+    if current_user.role != UserRole.ADMIN:
+        raise HTTPException(status_code=403, detail="Only admins can deactivate users")
+    
+    if user_id == current_user.id:
+        raise HTTPException(status_code=400, detail="Cannot deactivate yourself")
+    
+    result = await db.users.update_one(
+        {"id": user_id}, 
+        {"$set": {"is_active": False}}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    return {"message": "User deactivated successfully"}
+
 @api_router.get("/users/me", response_model=User)
 async def get_current_user_profile(current_user: User = Depends(get_current_user)):
     return current_user
