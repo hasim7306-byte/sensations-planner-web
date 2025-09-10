@@ -176,7 +176,7 @@ const Navbar = () => {
                 key={item.path}
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-800 transition-colors"
+                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-red-800 transition-colors"
               >
                 {item.icon} {item.name}
               </Link>
