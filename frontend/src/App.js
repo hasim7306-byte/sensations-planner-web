@@ -295,101 +295,89 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return <div className="flex justify-center items-center min-h-screen">Laden...</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Dashboard</h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Dashboard</h1>
       
-      <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-4">Welkom, {user?.name}!</h2>
-        <p className="text-gray-600">Uw rol: {user?.role}</p>
+      <div className="mb-6 sm:mb-8">
+        <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-4">Welkom, {user?.name}!</h2>
+        <p className="text-gray-600">Uw rol: <span className="capitalize font-medium">{user?.role}</span></p>
       </div>
 
       {(user?.role === 'admin' || user?.role === 'manager') && (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">👥</span>
-                  </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
+          <div className="bg-white overflow-hidden shadow rounded-lg p-4 sm:p-5">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-10 h-10 sm:w-8 sm:h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-lg sm:text-sm font-bold">👥</span>
                 </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Totaal Medewerkers</dt>
-                    <dd className="text-lg font-medium text-gray-900">{stats.total_employees || 0}</dd>
-                  </dl>
-                </div>
+              </div>
+              <div className="ml-4 sm:ml-5 w-0 flex-1">
+                <dt className="text-sm font-medium text-gray-500 truncate">Totaal Medewerkers</dt>
+                <dd className="text-xl sm:text-lg font-medium text-gray-900">{stats.total_employees || 0}</dd>
               </div>
             </div>
           </div>
 
-          <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">📅</span>
-                  </div>
+          <div className="bg-white overflow-hidden shadow rounded-lg p-4 sm:p-5">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-10 h-10 sm:w-8 sm:h-8 bg-green-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-lg sm:text-sm font-bold">📅</span>
                 </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Diensten Vandaag</dt>
-                    <dd className="text-lg font-medium text-gray-900">{stats.shifts_today || 0}</dd>
-                  </dl>
-                </div>
+              </div>
+              <div className="ml-4 sm:ml-5 w-0 flex-1">
+                <dt className="text-sm font-medium text-gray-500 truncate">Diensten Vandaag</dt>
+                <dd className="text-xl sm:text-lg font-medium text-gray-900">{stats.shifts_today || 0}</dd>
               </div>
             </div>
           </div>
 
-          <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <div className="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">⏰</span>
-                  </div>
+          <div className="bg-white overflow-hidden shadow rounded-lg p-4 sm:p-5">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-10 h-10 sm:w-8 sm:h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-lg sm:text-sm font-bold">⏰</span>
                 </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Actief Ingeklokt</dt>
-                    <dd className="text-lg font-medium text-gray-900">{stats.active_employees || 0}</dd>
-                  </dl>
-                </div>
+              </div>
+              <div className="ml-4 sm:ml-5 w-0 flex-1">
+                <dt className="text-sm font-medium text-gray-500 truncate">Actief Ingeklokt</dt>
+                <dd className="text-xl sm:text-lg font-medium text-gray-900">{stats.active_employees || 0}</dd>
               </div>
             </div>
           </div>
 
-          <div className="bg-white overflow-hidden shadow rounded-lg">
-            <div className="p-5">
-              <div className="flex items-center">
-                <div className="flex-shrink-0">
-                  <div className="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
-                    <span className="text-white text-sm font-bold">📝</span>
-                  </div>
+          <div className="bg-white overflow-hidden shadow rounded-lg p-4 sm:p-5">
+            <div className="flex items-center">
+              <div className="flex-shrink-0">
+                <div className="w-10 h-10 sm:w-8 sm:h-8 bg-red-500 rounded-full flex items-center justify-center">
+                  <span className="text-white text-lg sm:text-sm font-bold">📝</span>
                 </div>
-                <div className="ml-5 w-0 flex-1">
-                  <dl>
-                    <dt className="text-sm font-medium text-gray-500 truncate">Verlof Aanvragen</dt>
-                    <dd className="text-lg font-medium text-gray-900">{stats.pending_leaves || 0}</dd>
-                  </dl>
-                </div>
+              </div>
+              <div className="ml-4 sm:ml-5 w-0 flex-1">
+                <dt className="text-sm font-medium text-gray-500 truncate">Verlof Aanvragen</dt>
+                <dd className="text-xl sm:text-lg font-medium text-gray-900">{stats.pending_leaves || 0}</dd>
               </div>
             </div>
           </div>
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <div className="bg-white shadow rounded-lg p-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+        <div className="bg-white shadow rounded-lg p-4 sm:p-6">
           <h3 className="text-lg font-medium text-gray-900 mb-4">Snelle Acties</h3>
           <div className="space-y-3">
             <Link
               to="/time-tracking"
-              className="block w-full bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg p-4 text-left transition-colors"
+              className="block w-full bg-blue-50 hover:bg-blue-100 border border-blue-200 rounded-lg p-4 text-left transition-colors touch-target"
             >
               <div className="flex items-center">
                 <span className="text-2xl mr-3">⏰</span>
@@ -402,7 +390,7 @@ const Dashboard = () => {
             
             <Link
               to="/leave"
-              className="block w-full bg-green-50 hover:bg-green-100 border border-green-200 rounded-lg p-4 text-left transition-colors"
+              className="block w-full bg-green-50 hover:bg-green-100 border border-green-200 rounded-lg p-4 text-left transition-colors touch-target"
             >
               <div className="flex items-center">
                 <span className="text-2xl mr-3">🏖️</span>
@@ -415,7 +403,7 @@ const Dashboard = () => {
             
             <Link
               to="/schedule"
-              className="block w-full bg-purple-50 hover:bg-purple-100 border border-purple-200 rounded-lg p-4 text-left transition-colors"
+              className="block w-full bg-purple-50 hover:bg-purple-100 border border-purple-200 rounded-lg p-4 text-left transition-colors touch-target"
             >
               <div className="flex items-center">
                 <span className="text-2xl mr-3">📅</span>
@@ -425,19 +413,36 @@ const Dashboard = () => {
                 </div>
               </div>
             </Link>
+
+            <Link
+              to="/chat"
+              className="block w-full bg-orange-50 hover:bg-orange-100 border border-orange-200 rounded-lg p-4 text-left transition-colors touch-target"
+            >
+              <div className="flex items-center">
+                <span className="text-2xl mr-3">💬</span>
+                <div>
+                  <h4 className="font-medium text-gray-900">Team Chat</h4>
+                  <p className="text-sm text-gray-600">Communiceer met team</p>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
 
-        <div className="bg-white shadow rounded-lg p-6">
+        <div className="bg-white shadow rounded-lg p-4 sm:p-6">
           <h3 className="text-lg font-medium text-gray-900 mb-4">Recente Activiteit</h3>
           <div className="space-y-3">
             <div className="flex items-center text-sm text-gray-600">
-              <span className="w-2 h-2 bg-green-400 rounded-full mr-3"></span>
-              Systeem gestart en gereed voor gebruik
+              <span className="w-2 h-2 bg-green-400 rounded-full mr-3 flex-shrink-0"></span>
+              <span>Systeem gestart en gereed voor gebruik</span>
             </div>
             <div className="flex items-center text-sm text-gray-600">
-              <span className="w-2 h-2 bg-blue-400 rounded-full mr-3"></span>
-              Account aangemaakt: {user?.name}
+              <span className="w-2 h-2 bg-blue-400 rounded-full mr-3 flex-shrink-0"></span>
+              <span>Account aangemaakt: {user?.name}</span>
+            </div>
+            <div className="flex items-center text-sm text-gray-600">
+              <span className="w-2 h-2 bg-purple-400 rounded-full mr-3 flex-shrink-0"></span>
+              <span>Mobile interface geoptimaliseerd</span>
             </div>
           </div>
         </div>
