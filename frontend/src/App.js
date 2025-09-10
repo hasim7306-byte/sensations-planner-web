@@ -102,12 +102,9 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link to="/dashboard" className="flex items-center space-x-3 flex-shrink-0">
               <img 
-                src="/sensations-logo.png" 
+                src="/sensations-logo.svg" 
                 alt="Sensations To Go" 
-                className="h-10 w-auto"
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                }}
+                className="h-8 w-auto"
               />
               <span className="text-xl font-bold hidden sm:block">
                 Sensations To Go
