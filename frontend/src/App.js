@@ -123,7 +123,7 @@ const Navbar = () => {
                 <Link
                   key={item.path}
                   to={item.path}
-                  className="hover:bg-blue-700 px-3 py-2 rounded transition-colors"
+                  className="hover:bg-red-700 px-3 py-2 rounded transition-colors"
                 >
                   <span className="hidden lg:inline">{item.icon} </span>
                   {item.name}
