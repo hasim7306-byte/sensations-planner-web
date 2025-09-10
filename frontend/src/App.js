@@ -133,16 +133,13 @@ const Navbar = () => {
 };
 
 const LoginPage = () => {
-  const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    name: '',
-    role: 'employee'
+    password: ''
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { login, register } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -150,9 +147,7 @@ const LoginPage = () => {
     setLoading(true);
     setError('');
 
-    const result = isLogin 
-      ? await login(formData.email, formData.password)
-      : await register(formData);
+    const result = await login(formData.email, formData.password);
 
     if (result.success) {
       navigate('/dashboard');
@@ -174,7 +169,7 @@ const LoginPage = () => {
             Senations To Go Planner
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            {isLogin ? 'Inloggen op uw account' : 'Maak een nieuw account aan'}
+            Inloggen op uw account
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -185,18 +180,6 @@ const LoginPage = () => {
           )}
           
           <div className="space-y-4">
-            {!isLogin && (
-              <input
-                name="name"
-                type="text"
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Volledige naam"
-                value={formData.name}
-                onChange={handleChange}
-              />
-            )}
-            
             <input
               name="email"
               type="email"
@@ -216,19 +199,6 @@ const LoginPage = () => {
               value={formData.password}
               onChange={handleChange}
             />
-            
-            {!isLogin && (
-              <select
-                name="role"
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                value={formData.role}
-                onChange={handleChange}
-              >
-                <option value="employee">Medewerker</option>
-                <option value="manager">Manager</option>
-                <option value="admin">Administrator</option>
-              </select>
-            )}
           </div>
 
           <button
@@ -236,17 +206,11 @@ const LoginPage = () => {
             disabled={loading}
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
           >
-            {loading ? 'Bezig...' : (isLogin ? 'Inloggen' : 'Registreren')}
+            {loading ? 'Bezig...' : 'Inloggen'}
           </button>
 
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={() => setIsLogin(!isLogin)}
-              className="text-blue-600 hover:text-blue-500 text-sm"
-            >
-              {isLogin ? 'Geen account? Registreer hier' : 'Al een account? Log hier in'}
-            </button>
+          <div className="text-center text-xs text-gray-500">
+            Contact uw administrator voor toegang
           </div>
         </form>
       </div>
