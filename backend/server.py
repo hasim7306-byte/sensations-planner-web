@@ -215,32 +215,38 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(s
     except jwt.PyJWTError:
         raise HTTPException(status_code=401, detail="Invalid token")
 
-# Auth routes
-@api_router.post("/auth/register", response_model=Token)
-async def register(user_data: UserCreate):
-    # Check if user exists
-    existing_user = await db.users.find_one({"email": user_data.email})
-    if existing_user:
-        raise HTTPException(status_code=400, detail="Email already registered")
+# Initialize admin user on startup
+async def create_admin_user():
+    """Create default admin user if it doesn't exist"""
+    admin_email = "admin@sensationstogo.nl"
+    admin_password = "Ss202501"
     
-    # Hash password
-    hashed_password = get_password_hash(user_data.password)
-    
-    # Create user
-    user_dict = user_data.dict()
-    user_dict.pop("password")
-    user = User(**user_dict)
-    
-    # Store in database
-    user_mongo = prepare_for_mongo(user.dict())
-    user_mongo["password_hash"] = hashed_password
-    await db.users.insert_one(user_mongo)
-    
-    # Create token
-    access_token = create_access_token({"user_id": user.id})
-    
-    return Token(access_token=access_token, token_type="bearer", user=user)
+    # Check if admin user exists
+    existing_admin = await db.users.find_one({"email": admin_email})
+    if not existing_admin:
+        # Create admin user
+        hashed_password = get_password_hash(admin_password)
+        admin_user = User(
+            email=admin_email,
+            name="System Administrator",
+            role=UserRole.ADMIN,
+            department="IT",
+            is_active=True
+        )
+        
+        admin_mongo = prepare_for_mongo(admin_user.dict())
+        admin_mongo["password_hash"] = hashed_password
+        await db.users.insert_one(admin_mongo)
+        
+        logger.info("Default admin user created successfully")
+    else:
+        logger.info("Admin user already exists")
 
+@app.on_event("startup")
+async def startup_event():
+    await create_admin_user()
+
+# Auth routes - Remove registration endpoint for public use
 @api_router.post("/auth/login", response_model=Token)
 async def login(login_data: UserLogin):
     # Find user
@@ -251,6 +257,10 @@ async def login(login_data: UserLogin):
     # Verify password
     if not verify_password(login_data.password, user_data["password_hash"]):
         raise HTTPException(status_code=401, detail="Invalid email or password")
+    
+    # Check if user is active
+    if not user_data.get("is_active", True):
+        raise HTTPException(status_code=401, detail="Account is deactivated")
     
     user = User(**parse_from_mongo(user_data))
     access_token = create_access_token({"user_id": user.id})
