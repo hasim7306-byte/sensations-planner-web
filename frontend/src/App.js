@@ -76,42 +76,112 @@ const useAuth = () => {
 const Navbar = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
 
+  const navigationItems = [
+    { name: 'Dashboard', path: '/dashboard', icon: '🏠' },
+    { name: 'Roosters', path: '/schedule', icon: '📅' },
+    { name: 'Tijd Registratie', path: '/time-tracking', icon: '⏰' },
+    { name: 'Verlof', path: '/leave', icon: '🏖️' },
+    { name: 'Chat', path: '/chat', icon: '💬' }
+  ];
+
+  if (user?.role === 'admin' || user?.role === 'manager') {
+    navigationItems.push({ name: 'Medewerkers', path: '/employees', icon: '👥' });
+  }
+
   return (
     <nav className="bg-blue-600 text-white shadow-lg">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex items-center space-x-8">
-            <Link to="/dashboard" className="text-xl font-bold">
-              Senations To Go Planner
+          <div className="flex items-center">
+            <Link to="/dashboard" className="text-xl font-bold flex-shrink-0">
+              Senations To Go
             </Link>
-            <div className="hidden md:flex space-x-4">
-              <Link to="/dashboard" className="hover:bg-blue-700 px-3 py-2 rounded">Dashboard</Link>
-              <Link to="/schedule" className="hover:bg-blue-700 px-3 py-2 rounded">Roosters</Link>
-              <Link to="/time-tracking" className="hover:bg-blue-700 px-3 py-2 rounded">Tijd Registratie</Link>
-              <Link to="/leave" className="hover:bg-blue-700 px-3 py-2 rounded">Verlof</Link>
-              <Link to="/chat" className="hover:bg-blue-700 px-3 py-2 rounded">Chat</Link>
-              {(user?.role === 'admin' || user?.role === 'manager') && (
-                <Link to="/employees" className="hover:bg-blue-700 px-3 py-2 rounded">Medewerkers</Link>
-              )}
+            
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex ml-8 space-x-4">
+              {navigationItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  className="hover:bg-blue-700 px-3 py-2 rounded transition-colors"
+                >
+                  <span className="hidden lg:inline">{item.icon} </span>
+                  {item.name}
+                </Link>
+              ))}
             </div>
           </div>
-          <div className="flex items-center space-x-4">
-            <span className="text-sm">{user?.name} ({user?.role})</span>
+
+          {/* Desktop User Menu */}
+          <div className="hidden md:flex items-center space-x-4">
+            <span className="text-sm truncate max-w-32">
+              {user?.name} ({user?.role})
+            </span>
             <button
               onClick={handleLogout}
-              className="bg-blue-700 hover:bg-blue-800 px-3 py-2 rounded text-sm"
+              className="bg-blue-700 hover:bg-blue-800 px-3 py-2 rounded text-sm transition-colors"
             >
               Uitloggen
             </button>
           </div>
+
+          {/* Mobile menu button */}
+          <div className="md:hidden flex items-center">
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="inline-flex items-center justify-center p-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              aria-expanded="false"
+            >
+              <span className="sr-only">Open main menu</span>
+              {mobileMenuOpen ? (
+                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
       </div>
+
+      {/* Mobile Navigation Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden">
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-blue-700">
+            {navigationItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                onClick={() => setMobileMenuOpen(false)}
+                className="block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-800 transition-colors"
+              >
+                {item.icon} {item.name}
+              </Link>
+            ))}
+            <div className="border-t border-blue-600 pt-4">
+              <div className="px-3 py-2 text-sm text-blue-100">
+                {user?.name} ({user?.role})
+              </div>
+              <button
+                onClick={handleLogout}
+                className="block w-full text-left px-3 py-2 rounded-md text-base font-medium hover:bg-blue-800 transition-colors"
+              >
+                🚪 Uitloggen
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </nav>
   );
 };
