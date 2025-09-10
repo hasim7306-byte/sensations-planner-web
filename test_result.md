@@ -127,7 +127,7 @@ backend:
     status_history:
       - working: "NA"
         agent: "main"
-        comment: "Implemented user CRUD operations with role-based access control (admin, manager, employee)"
+        comment: "Updated user management with admin user creation capabilities - POST /users, PUT /users/{id}, DELETE /users/{id} endpoints added"
 
   - task: "Shift/Schedule Management"
     implemented: true
