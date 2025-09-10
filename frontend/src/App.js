@@ -1083,6 +1083,18 @@ const ChatPage = () => {
 
 const EmployeesPage = () => {
   const [employees, setEmployees] = useState([]);
+  const [newUser, setNewUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'employee',
+    department: '',
+    phone: '',
+    hourly_rate: ''
+  });
+  const [showForm, setShowForm] = useState(false);
+  const [editingUser, setEditingUser] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { user } = useAuth();
 
   useEffect(() => {
@@ -1100,6 +1112,83 @@ const EmployeesPage = () => {
     }
   };
 
+  const handleCreateUser = async (e) => {
+    e.preventDefault();
+    if (user?.role !== 'admin') {
+      alert('Alleen admins kunnen gebruikers aanmaken');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const userData = {
+        ...newUser,
+        hourly_rate: newUser.hourly_rate ? parseFloat(newUser.hourly_rate) : null
+      };
+      
+      await axios.post(`${API}/users`, userData);
+      
+      setNewUser({
+        name: '',
+        email: '',
+        password: '',
+        role: 'employee',
+        department: '',
+        phone: '',
+        hourly_rate: ''
+      });
+      setShowForm(false);
+      fetchEmployees();
+      alert('Gebruiker succesvol aangemaakt!');
+    } catch (error) {
+      alert(error.response?.data?.detail || 'Fout bij aanmaken gebruiker');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleUpdateUser = async (userId, updateData) => {
+    if (user?.role !== 'admin') {
+      alert('Alleen admins kunnen gebruikers bewerken');
+      return;
+    }
+
+    try {
+      await axios.put(`${API}/users/${userId}`, updateData);
+      fetchEmployees();
+      setEditingUser(null);
+      alert('Gebruiker succesvol bijgewerkt!');
+    } catch (error) {
+      alert(error.response?.data?.detail || 'Fout bij bijwerken gebruiker');
+    }
+  };
+
+  const handleDeactivateUser = async (userId) => {
+    if (user?.role !== 'admin') {
+      alert('Alleen admins kunnen gebruikers deactiveren');
+      return;
+    }
+
+    if (window.confirm('Weet u zeker dat u deze gebruiker wilt deactiveren?')) {
+      try {
+        await axios.delete(`${API}/users/${userId}`);
+        fetchEmployees();
+        alert('Gebruiker gedeactiveerd!');
+      } catch (error) {
+        alert(error.response?.data?.detail || 'Fout bij deactiveren gebruiker');
+      }
+    }
+  };
+
+  const getRoleText = (role) => {
+    const roles = {
+      admin: 'Administrator',
+      manager: 'Manager',
+      employee: 'Medewerker'
+    };
+    return roles[role] || role;
+  };
+
   if (user?.role !== 'admin' && user?.role !== 'manager') {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -1113,7 +1202,98 @@ const EmployeesPage = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Medewerkers</h1>
+      <div className="flex justify-between items-center mb-8">
+        <h1 className="text-3xl font-bold text-gray-900">Medewerker Beheer</h1>
+        {user?.role === 'admin' && (
+          <button
+            onClick={() => setShowForm(!showForm)}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+          >
+            {showForm ? 'Annuleren' : '+ Nieuwe Gebruiker'}
+          </button>
+        )}
+      </div>
+
+      {showForm && user?.role === 'admin' && (
+        <div className="bg-white shadow rounded-lg p-6 mb-8">
+          <h2 className="text-xl font-semibold mb-4">Nieuwe Gebruiker Aanmaken</h2>
+          <form onSubmit={handleCreateUser} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input
+              type="text"
+              value={newUser.name}
+              onChange={(e) => setNewUser({...newUser, name: e.target.value})}
+              required
+              placeholder="Volledige naam"
+              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+            <input
+              type="email"
+              value={newUser.email}
+              onChange={(e) => setNewUser({...newUser, email: e.target.value})}
+              required
+              placeholder="E-mailadres"
+              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+            <input
+              type="password"
+              value={newUser.password}
+              onChange={(e) => setNewUser({...newUser, password: e.target.value})}
+              required
+              placeholder="Wachtwoord"
+              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+            <select
+              value={newUser.role}
+              onChange={(e) => setNewUser({...newUser, role: e.target.value})}
+              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="employee">Medewerker</option>
+              <option value="manager">Manager</option>
+              <option value="admin">Administrator</option>
+            </select>
+
+            <input
+              type="text"
+              value={newUser.department}
+              onChange={(e) => setNewUser({...newUser, department: e.target.value})}
+              placeholder="Afdeling"
+              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+            <input
+              type="tel"
+              value={newUser.phone}
+              onChange={(e) => setNewUser({...newUser, phone: e.target.value})}
+              placeholder="Telefoonnummer"
+              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+            <input
+              type="number"
+              step="0.01"
+              value={newUser.hourly_rate}
+              onChange={(e) => setNewUser({...newUser, hourly_rate: e.target.value})}
+              placeholder="Uurloon (€)"
+              className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+
+            <div></div>
+
+            <div className="md:col-span-2">
+              <button
+                type="submit"
+                disabled={loading}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg disabled:opacity-50"
+              >
+                {loading ? 'Bezig...' : 'Gebruiker Aanmaken'}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
       
       <div className="bg-white shadow rounded-lg p-6">
         <div className="overflow-x-auto">
@@ -1127,6 +1307,9 @@ const EmployeesPage = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Telefoon</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Uurloon</th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                {user?.role === 'admin' && (
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acties</th>
+                )}
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
@@ -1139,7 +1322,13 @@ const EmployeesPage = () => {
                     {employee.email}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {employee.role}
+                    <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                      employee.role === 'admin' ? 'bg-purple-100 text-purple-800' :
+                      employee.role === 'manager' ? 'bg-blue-100 text-blue-800' :
+                      'bg-green-100 text-green-800'
+                    }`}>
+                      {getRoleText(employee.role)}
+                    </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {employee.department || '-'}
@@ -1157,12 +1346,121 @@ const EmployeesPage = () => {
                       {employee.is_active ? 'Actief' : 'Inactief'}
                     </span>
                   </td>
+                  {user?.role === 'admin' && (
+                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                      <button
+                        onClick={() => setEditingUser(employee)}
+                        className="text-indigo-600 hover:text-indigo-900"
+                      >
+                        Bewerken
+                      </button>
+                      {employee.id !== user.id && (
+                        <button
+                          onClick={() => handleDeactivateUser(employee.id)}
+                          className="text-red-600 hover:text-red-900"
+                        >
+                          Deactiveren
+                        </button>
+                      )}
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
       </div>
+
+      {/* Edit User Modal */}
+      {editingUser && user?.role === 'admin' && (
+        <div className="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center">
+          <div className="bg-white p-8 rounded-lg shadow-xl max-w-md w-full mx-4">
+            <h3 className="text-lg font-medium text-gray-900 mb-4">Gebruiker Bewerken</h3>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.target);
+              const updateData = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                role: formData.get('role'),
+                department: formData.get('department'),
+                phone: formData.get('phone'),
+                hourly_rate: formData.get('hourly_rate') ? parseFloat(formData.get('hourly_rate')) : null
+              };
+              handleUpdateUser(editingUser.id, updateData);
+            }} className="space-y-4">
+              <input
+                name="name"
+                type="text"
+                defaultValue={editingUser.name}
+                required
+                placeholder="Volledige naam"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              
+              <input
+                name="email"
+                type="email"
+                defaultValue={editingUser.email}
+                required
+                placeholder="E-mailadres"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              
+              <select
+                name="role"
+                defaultValue={editingUser.role}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="employee">Medewerker</option>
+                <option value="manager">Manager</option>
+                <option value="admin">Administrator</option>
+              </select>
+              
+              <input
+                name="department"
+                type="text"
+                defaultValue={editingUser.department || ''}
+                placeholder="Afdeling"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              
+              <input
+                name="phone"
+                type="tel"
+                defaultValue={editingUser.phone || ''}
+                placeholder="Telefoonnummer"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              
+              <input
+                name="hourly_rate"
+                type="number"
+                step="0.01"
+                defaultValue={editingUser.hourly_rate || ''}
+                placeholder="Uurloon (€)"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+              
+              <div className="flex justify-end space-x-3 pt-4">
+                <button
+                  type="button"
+                  onClick={() => setEditingUser(null)}
+                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
+                >
+                  Annuleren
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
+                >
+                  Opslaan
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
