@@ -231,12 +231,9 @@ const LoginPage = () => {
         <div className="text-center">
           <div className="flex justify-center mb-6">
             <img 
-              src="/sensations-logo.png" 
+              src="/sensations-logo.svg" 
               alt="Sensations To Go" 
-              className="h-24 w-auto"
-              onError={(e) => {
-                e.target.style.display = 'none';
-              }}
+              className="h-20 w-auto"
             />
           </div>
           <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900">
