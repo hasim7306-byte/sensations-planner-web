@@ -327,22 +327,19 @@ async def update_user(user_id: str, user_data: dict, current_user: User = Depend
     return User(**parse_from_mongo(updated_user))
 
 @api_router.delete("/users/{user_id}")
-async def deactivate_user(user_id: str, current_user: User = Depends(get_current_user)):
+async def delete_user(user_id: str, current_user: User = Depends(get_current_user)):
     if current_user.role != UserRole.ADMIN:
-        raise HTTPException(status_code=403, detail="Only admins can deactivate users")
+        raise HTTPException(status_code=403, detail="Only admins can delete users")
     
     if user_id == current_user.id:
-        raise HTTPException(status_code=400, detail="Cannot deactivate yourself")
+        raise HTTPException(status_code=400, detail="Cannot delete yourself")
     
-    result = await db.users.update_one(
-        {"id": user_id}, 
-        {"$set": {"is_active": False}}
-    )
+    result = await db.users.delete_one({"id": user_id})
     
-    if result.matched_count == 0:
+    if result.deleted_count == 0:
         raise HTTPException(status_code=404, detail="User not found")
     
-    return {"message": "User deactivated successfully"}
+    return {"message": "User deleted successfully"}
 
 @api_router.get("/users/me", response_model=User)
 async def get_current_user_profile(current_user: User = Depends(get_current_user)):
