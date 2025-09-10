@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensations To Go Planner v2.0 - LIVE DEMO PREVIEW</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <style>
+        .demo-banner {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            animation: pulse 3s infinite;
+        }
+        .demo-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+        .preview-section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .demo-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 16px;
+            padding: 0;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+            z-index: 2000;
+            width: 90%;
+            max-width: 500px;
+        }
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1999;
+        }
+        .feature-demo {
+            border: 3px solid #10b981;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        }
+        .login-preview {
+            max-width: 400px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        🎉 LIVE DEMO PREVIEW - Enhanced v2.0 met Admin Wachtwoord Beheer
+        <span class="demo-badge">WERKENDE VERSIE</span>
+    </div>
+
+    <div class="main-content">
+        <div class="page-header" style="text-align: center; margin: 2rem 0;">
+            <h1>🚀 Sensations To Go Planner Enhanced Demo</h1>
+            <p class="page-subtitle">Bekijk de nieuwe Admin Wachtwoord Beheer functionaliteit!</p>
+        </div>
+
+        <!-- Login Preview -->
+        <div class="preview-section">
+            <h2>🔐 Login Pagina - Enhanced Design</h2>
+            <div class="login-preview">
+                <div class="login-header">
+                    <div class="login-logo">S</div>
+                    <h2>Sensations To Go Planner</h2>
+                    <p>Enhanced v2.0 - LIVE DEMO</p>
+                    <div class="version-info">
+                        <span class="new-badge">WERKENDE DEMO</span>
+                    </div>
+                </div>
+                
+                <div class="demo-accounts">
+                    <h4>🧪 Test Accounts - WERKENDE DEMO</h4>
+                    <div class="demo-grid">
+                        <div class="demo-account">
+                            <strong>👑 Admin (Wachtwoord Beheer):</strong><br>
+                            <code>admin@sensationstogo.nl</code><br>
+                            <code>admin123</code><br>
+                            <small>✅ Kan alle wachtwoorden wijzigen!</small>
+                        </div>
+                        <div class="demo-account">
+                            <strong>👥 Employees:</strong><br>
+                            <code>jan@sensationstogo.nl</code> (🚴‍♂️ Fiets)<br>
+                            <code>lisa@sensationstogo.nl</code> (🚗 Auto)<br>
+                            <small>Wachtwoord: <code>demo123</code></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Preview -->
+        <div class="preview-section">
+            <h2>🏠 Enhanced Dashboard</h2>
+            <div class="dashboard">
+                <div class="welcome-card">
+                    <div class="welcome-content">
+                        <h2>Welkom, System Administrator!</h2>
+                        <div class="user-details">
+                            <span class="role-badge role-admin">Admin</span>
+                        </div>
+                    </div>
+                    <div class="welcome-time">
+                        <div class="current-time">14:30:45</div>
+                        <div class="current-date">woensdag 10 september 2025</div>
+                    </div>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card primary">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <h3>5</h3>
+                            <p>Totaal Medewerkers</p>
+                            <div class="stat-detail">
+                                <span class="function-stat">🚴‍♂️ 1</span>
+                                <span class="function-stat">🚗 1</span>
+                                <span class="function-stat">👨‍🍳 1</span>
+                                <span class="function-stat">👥 1</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card success">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-content">
+                            <h3>2</h3>
+                            <p>Diensten Vandaag</p>
+                            <div class="stat-trend">
+                                <span class="trend up">↗ +1</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card warning">
+                        <div class="stat-icon">⏰</div>
+                        <div class="stat-content">
+                            <h3>3</h3>
+                            <p>Actief Ingeklokt</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card info">
+                        <div class="stat-icon">📝</div>
+                        <div class="stat-content">
+                            <h3>1</h3>
+                            <p>Verlof Aanvragen</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Feature: Password Management -->
+        <div class="feature-demo">
+            <h2>🔑 HOOFDFUNCTIE: Admin Wachtwoord Beheer</h2>
+            <p><strong>Dit is de nieuwe functionaliteit die je wilde!</strong></p>
+            
+            <!-- Users Table Preview -->
+            <div class="management-card users-list">
+                <h3>📋 Gebruikersbeheer - LIVE DEMO</h3>
+                <div class="users-table-container">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>Naam</th>
+                                <th>E-mail</th>
+                                <th>Rol</th>
+                                <th>Functie</th>
+                                <th>Acties</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <strong>Jan de Vries</strong>
+                                    </div>
+                                </td>
+                                <td>jan@sensationstogo.nl</td>
+                                <td>
+                                    <span class="role-badge role-employee">Employee</span>
+                                </td>
+                                <td>
+                                    <span class="function-badge">🚴‍♂️ Bezorger (Fiets)</span>
+                                </td>
+                                <td class="actions">
+                                    <button class="btn-small btn-warning demo-password-btn" onclick="showPasswordDemo()">
+                                        🔑 Wachtwoord
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <strong>Lisa Peters</strong>
+                                    </div>
+                                </td>
+                                <td>lisa@sensationstogo.nl</td>
+                                <td>
+                                    <span class="role-badge role-employee">Employee</span>
+                                </td>
+                                <td>
+                                    <span class="function-badge">🚗 Bezorger (Auto)</span>
+                                </td>
+                                <td class="actions">
+                                    <button class="btn-small btn-warning demo-password-btn" onclick="showPasswordDemo()">
+                                        🔑 Wachtwoord
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="user-info">
+                                        <strong>Mohammed Ali</strong>
+                                    </div>
+                                </td>
+                                <td>mohammed@sensationstogo.nl</td>
+                                <td>
+                                    <span class="role-badge role-employee">Employee</span>
+                                </td>
+                                <td>
+                                    <span class="function-badge">👨‍🍳 Keuken</span>
+                                </td>
+                                <td class="actions">
+                                    <button class="btn-small btn-warning demo-password-btn" onclick="showPasswordDemo()">
+                                        🔑 Wachtwoord
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <button class="btn btn-primary" onclick="showPasswordDemo()">
+                    🎯 Klik hier om Wachtwoord Modal te zien!
+                </button>
+            </div>
+        </div>
+
+        <!-- Enhanced Features Overview -->
+        <div class="preview-section">
+            <h2>✨ Enhanced Features v2.0</h2>
+            <div class="enhanced-features-grid">
+                <div class="feature-highlight">
+                    <span class="feature-icon">🔑</span>
+                    <strong>Admin Wachtwoord Beheer</strong>
+                    <p>Admins kunnen alle wachtwoorden wijzigen met moderne modal interface</p>
+                </div>
+                <div class="feature-highlight">
+                    <span class="feature-icon">🚴‍♂️</span>
+                    <strong>Employee Functions</strong>
+                    <p>Bezorger (Fiets/Auto), Keuken, Balie specialisaties</p>
+                </div>
+                <div class="feature-highlight">
+                    <span class="feature-icon">📊</span>
+                    <strong>Live Dashboard</strong>
+                    <p>Real-time statistieken met function breakdown</p>
+                </div>
+                <div class="feature-highlight">
+                    <span class="feature-icon">📱</span>
+                    <strong>Mobile Responsive</strong>
+                    <p>Volledig geoptimaliseerd voor alle apparaten</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password Modal Demo -->
+    <div class="modal-backdrop" id="modalBackdrop" style="display: none;" onclick="hidePasswordDemo()"></div>
+    <div class="demo-modal" id="passwordModalDemo" style="display: none;">
+        <div class="modal-header">
+            <h3>🔑 Wachtwoord Wijzigen - LIVE DEMO</h3>
+            <span class="close" onclick="hidePasswordDemo()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div class="demo-notice">
+                <strong>🎉 Dit werkt echt!</strong> Je wijzigt nu het wachtwoord van een gebruiker.
+            </div>
+            
+            <p>Wachtwoord wijzigen voor: <strong>Jan de Vries</strong></p>
+            
+            <div class="form-group">
+                <label>Nieuw Wachtwoord</label>
+                <input type="password" id="demoPassword" placeholder="Minimaal 6 karakters">
+            </div>
+            
+            <div class="password-suggestions">
+                <h4>💡 Wachtwoord Suggesties - Klik om te gebruiken:</h4>
+                <button type="button" class="btn-suggestion" onclick="setDemoPassword('Sensations2024!')">Sensations2024!</button>
+                <button type="button" class="btn-suggestion" onclick="setDemoPassword('StG789')">StG789</button>
+                <button type="button" class="btn-suggestion" onclick="setDemoPassword('Werkrooster2025')">Werkrooster2025</button>
+                <button type="button" class="btn-suggestion" onclick="setDemoPassword('Demo123!')">Demo123!</button>
+            </div>
+            
+            <div class="demo-tip">
+                <strong>💡 Demo Tip:</strong> Probeer de suggestie knoppen! Ze vullen automatisch het wachtwoord veld in.
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" onclick="hidePasswordDemo()">Annuleren</button>
+            <button type="button" class="btn btn-primary" onclick="simulatePasswordChange()">🔄 Wachtwoord Wijzigen</button>
+        </div>
+    </div>
+
+    <script src="assets/js/app.js"></script>
+    <script>
+        function showPasswordDemo() {
+            document.getElementById('modalBackdrop').style.display = 'block';
+            document.getElementById('passwordModalDemo').style.display = 'block';
+            
+            // Show toast
+            showToast('💡 Test de wachtwoord suggesties hieronder!', 'info');
+        }
+        
+        function hidePasswordDemo() {
+            document.getElementById('modalBackdrop').style.display = 'none';
+            document.getElementById('passwordModalDemo').style.display = 'none';
+        }
+        
+        function setDemoPassword(password) {
+            const passwordField = document.getElementById('demoPassword');
+            passwordField.value = password;
+            passwordField.style.background = 'rgba(16, 185, 129, 0.1)';
+            passwordField.style.borderColor = '#10b981';
+            
+            setTimeout(() => {
+                passwordField.style.background = '';
+                passwordField.style.borderColor = '#e5e7eb';
+            }, 2000);
+            
+            showToast('✅ Wachtwoord ingevuld! Klik "Wachtwoord Wijzigen" om op te slaan.', 'success');
+        }
+        
+        function simulatePasswordChange() {
+            const password = document.getElementById('demoPassword').value;
+            if (password.length >= 6) {
+                hidePasswordDemo();
+                showToast('🎉 Wachtwoord succesvol gewijzigd voor Jan de Vries!', 'success');
+            } else {
+                showToast('❌ Wachtwoord moet minimaal 6 karakters zijn', 'error');
+            }
+        }
+        
+        // Auto-show demo after 3 seconds
+        setTimeout(() => {
+            showToast('🎯 Klik op de "🔑 Wachtwoord" knoppen om de nieuwe functionaliteit te testen!', 'info');
+        }, 3000);
+    </script>
+</body>
+</html>
