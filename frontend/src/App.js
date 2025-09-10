@@ -510,17 +510,17 @@ const TimeTracking = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">Tijd Registratie</h1>
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-6 sm:mb-8">Tijd Registratie</h1>
       
-      <div className="bg-white shadow rounded-lg p-6 mb-8">
-        <h2 className="text-xl font-semibold mb-4">In/Uitklokken</h2>
-        <div className="flex items-center space-x-4">
+      <div className="bg-white shadow rounded-lg p-4 sm:p-6 mb-6 sm:mb-8">
+        <h2 className="text-lg sm:text-xl font-semibold mb-4">In/Uitklokken</h2>
+        <div className="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
           {!clockedIn ? (
             <button
               onClick={handleClockIn}
               disabled={loading}
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium disabled:opacity-50"
+              className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white px-6 py-4 sm:py-3 rounded-lg font-medium disabled:opacity-50 text-lg sm:text-base touch-target"
             >
               {loading ? 'Bezig...' : '🕐 Inklokken'}
             </button>
@@ -528,17 +528,17 @@ const TimeTracking = () => {
             <button
               onClick={handleClockOut}
               disabled={loading}
-              className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium disabled:opacity-50"
+              className="w-full sm:w-auto bg-red-600 hover:bg-red-700 text-white px-6 py-4 sm:py-3 rounded-lg font-medium disabled:opacity-50 text-lg sm:text-base touch-target"
             >
               {loading ? 'Bezig...' : '🕐 Uitklokken'}
             </button>
           )}
           
           {clockedIn && (
-            <div className="bg-green-100 text-green-800 px-4 py-2 rounded-lg">
-              <span className="font-medium">Status: Ingeklokt</span> 
+            <div className="w-full sm:w-auto bg-green-100 text-green-800 px-4 py-3 sm:py-2 rounded-lg text-center sm:text-left">
+              <span className="font-medium block sm:inline">Status: Ingeklokt</span> 
               {currentEntry && (
-                <span className="text-sm ml-2">
+                <span className="text-sm block sm:inline sm:ml-2">
                   sinds {new Date(currentEntry.clock_in).toLocaleTimeString()}
                 </span>
               )}
@@ -547,9 +547,13 @@ const TimeTracking = () => {
         </div>
       </div>
 
-      <div className="bg-white shadow rounded-lg p-6">
-        <h2 className="text-xl font-semibold mb-4">Tijd Overzicht</h2>
-        <div className="overflow-x-auto">
+      <div className="bg-white shadow rounded-lg">
+        <div className="px-4 py-4 sm:px-6 sm:py-4 border-b border-gray-200">
+          <h2 className="text-lg sm:text-xl font-semibold">Tijd Overzicht</h2>
+        </div>
+        
+        {/* Desktop Table */}
+        <div className="hidden sm:block overflow-x-auto">
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
@@ -586,6 +590,62 @@ const TimeTracking = () => {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile Cards */}
+        <div className="sm:hidden">
+          {entries.map((entry) => (
+            <div key={entry.id} className="border-b border-gray-200 p-4">
+              <div className="flex justify-between items-start mb-2">
+                <div className="font-medium text-gray-900">
+                  {new Date(entry.date).toLocaleDateString('nl-NL', { 
+                    weekday: 'short', 
+                    day: '2-digit', 
+                    month: '2-digit' 
+                  })}
+                </div>
+                <span className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${
+                  entry.is_approved ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                }`}>
+                  {entry.is_approved ? 'Goedgekeurd' : 'In afwachting'}
+                </span>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <span className="text-gray-500">In:</span>
+                  <div className="font-medium">
+                    {entry.clock_in ? new Date(entry.clock_in).toLocaleTimeString('nl-NL', {
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    }) : '-'}
+                  </div>
+                </div>
+                <div>
+                  <span className="text-gray-500">Uit:</span>
+                  <div className="font-medium">
+                    {entry.clock_out ? new Date(entry.clock_out).toLocaleTimeString('nl-NL', {
+                      hour: '2-digit',
+                      minute: '2-digit'
+                    }) : '-'}
+                  </div>
+                </div>
+              </div>
+              
+              {entry.total_hours && (
+                <div className="mt-2 text-sm">
+                  <span className="text-gray-500">Totaal: </span>
+                  <span className="font-medium text-blue-600">{entry.total_hours}h</span>
+                </div>
+              )}
+            </div>
+          ))}
+          
+          {entries.length === 0 && (
+            <div className="p-8 text-center text-gray-500">
+              Nog geen tijd geregistreerd
+            </div>
+          )}
         </div>
       </div>
     </div>
