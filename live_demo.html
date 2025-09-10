@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 LIVE DEMO - Enhanced Sensations To Go Planner v2.0</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            color: #1a202c;
+            line-height: 1.6;
+        }
+        .demo-banner {
+            background: linear-gradient(135deg, #10b981 0%, #047857 100%);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            font-weight: bold;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+            animation: pulse 3s infinite;
+        }
+        .demo-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+        .section {
+            background: white;
+            margin: 2rem 0;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .feature-demo {
+            border: 3px solid #10b981;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+        }
+        .btn {
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin: 0.5rem;
+            transition: all 0.2s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
+        }
+        .login-demo {
+            max-width: 400px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: #dc2626;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .demo-accounts {
+            background: #f8fafc;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            text-align: left;
+        }
+        .account-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .account {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+        .feature-card:hover {
+            transform: translateY(-4px);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        .instructions {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+        }
+        .step-number {
+            background: #10b981;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+        .highlight {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            border: 2px solid #ef4444;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            text-align: center;
+            font-weight: bold;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.02); }
+        }
+        @media (max-width: 768px) {
+            .account-grid { grid-template-columns: 1fr; }
+            .features-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-banner">
+        🔥 LIVE DEMO - Enhanced v2.0 met Admin Wachtwoord Beheer
+        <span class="demo-badge">WERKENDE VERSIE</span>
+    </div>
+
+    <div class="container">
+        <div class="section" style="text-align: center;">
+            <h1 style="font-size: 3rem; margin-bottom: 1rem; color: #1f2937;">
+                🚀 Sensations To Go Planner Enhanced v2.0
+            </h1>
+            <p style="font-size: 1.25rem; color: #6b7280; margin-bottom: 2rem;">
+                Bekijk de nieuwe Admin Wachtwoord Beheer functionaliteit!
+            </p>
+            
+            <div class="highlight">
+                🎯 HOOFDFUNCTIE: Admin kan wachtwoorden van alle medewerkers wijzigen!
+            </div>
+        </div>
+
+        <!-- Login Demo -->
+        <div class="section">
+            <h2 style="text-align: center; margin-bottom: 2rem;">🔐 Enhanced Login Interface</h2>
+            <div class="login-demo">
+                <div class="logo">S</div>
+                <h3>Sensations To Go Planner</h3>
+                <p style="color: #6b7280; margin-bottom: 1rem;">Enhanced v2.0 - LIVE DEMO</p>
+                <span style="background: #10b981; color: white; padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.75rem; font-weight: bold;">WERKENDE DEMO</span>
+                
+                <div class="demo-accounts">
+                    <h4 style="text-align: center; margin-bottom: 1rem;">🧪 Test Accounts</h4>
+                    <div class="account-grid">
+                        <div class="account">
+                            <strong>👑 Admin:</strong><br>
+                            <code>admin@sensationstogo.nl</code><br>
+                            <code>admin123</code><br>
+                            <small style="color: #10b981;">✅ Kan alle wachtwoorden wijzigen!</small>
+                        </div>
+                        <div class="account">
+                            <strong>👥 Employees:</strong><br>
+                            <code>jan@sensationstogo.nl</code><br>
+                            <code>lisa@sensationstogo.nl</code><br>
+                            <small>Wachtwoord: <code>demo123</code></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Feature -->
+        <div class="feature-demo">
+            <h2 style="text-align: center; margin-bottom: 2rem;">
+                🔑 HOOFDFUNCTIONALITEIT: Admin Wachtwoord Beheer
+            </h2>
+            <p style="text-align: center; font-size: 1.125rem; margin-bottom: 2rem;">
+                <strong>Dit is de nieuwe functionaliteit die je wilde!</strong>
+            </p>
+            
+            <div class="instructions">
+                <h3 style="text-align: center; margin-bottom: 2rem; color: #92400e;">
+                    🎯 Hoe de Wachtwoord Beheer Functie werkt:
+                </h3>
+                
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div>
+                        <strong>Admin Login</strong><br>
+                        Log in als admin met: admin@sensationstogo.nl / admin123
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div>
+                        <strong>Ga naar Gebruikersbeheer</strong><br>
+                        Klik op "👥 Gebruikers" in het hoofdmenu
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div>
+                        <strong>Wachtwoord Wijzigen</strong><br>
+                        Klik op "🔑 Wachtwoord" knop bij elke gebruiker
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div>
+                        <strong>Gebruik Suggesties</strong><br>
+                        Klik op suggesties zoals "Sensations2024!" om automatisch in te vullen
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div>
+                        <strong>Opslaan & Feedback</strong><br>
+                        Klik "Wachtwoord Wijzigen" en zie direct success feedback!
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <a href="demo_index.php" class="btn" style="font-size: 1.25rem; padding: 1.25rem 2.5rem;">
+                    🚀 Start Live Demo Nu!
+                </a>
+            </div>
+        </div>
+
+        <!-- Enhanced Features -->
+        <div class="section">
+            <h2 style="text-align: center; margin-bottom: 2rem;">✨ Enhanced Features v2.0</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🔑</span>
+                    <h3>Admin Wachtwoord Beheer</h3>
+                    <p>Admins kunnen alle wachtwoorden wijzigen met moderne modal interface en suggesties</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🚴‍♂️</span>
+                    <h3>Employee Functions</h3>
+                    <p>Bezorger (Fiets/Auto), Keuken Medewerker, Balie Medewerker specialisaties</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <h3>Live Dashboard</h3>
+                    <p>Real-time statistieken met employee function breakdown en trends</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">📱</span>
+                    <h3>Mobile Responsive</h3>
+                    <p>Volledig geoptimaliseerd voor alle apparaten met hamburger menu</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">⚡</span>
+                    <h3>No Database Setup</h3>
+                    <p>File-based demo database - geen MySQL configuratie nodig!</p>
+                </div>
+                
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <h3>Modern UI/UX</h3>
+                    <p>Enhanced styling, animaties, hover effects en smooth interactions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="section" style="text-align: center; background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%); color: white;">
+            <h2 style="font-size: 2rem; margin-bottom: 1rem;">🎉 Klaar om te Testen?</h2>
+            <p style="font-size: 1.125rem; margin-bottom: 2rem; opacity: 0.9;">
+                De volledig werkende demo wacht op je! Test de admin wachtwoord beheer functionaliteit nu.
+            </p>
+            
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <a href="demo_index.php" class="btn" style="background: white; color: #dc2626; font-size: 1.125rem;">
+                    🚀 Live Demo Starten
+                </a>
+                <a href="demo_install.php" class="btn" style="background: rgba(255,255,255,0.1); border: 2px solid white;">
+                    ⚙️ Enhanced Installer
+                </a>
+            </div>
+            
+            <div style="margin-top: 2rem; padding: 1rem; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                <p><strong>🔥 Direct testen:</strong> demo_index.php → Login als admin → Gebruikers → Klik 🔑 Wachtwoord!</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                    this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.15)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 4px 15px rgba(0,0,0,0.05)';
+                });
+            });
+            
+            // Show notification after 3 seconds
+            setTimeout(() => {
+                const notification = document.createElement('div');
+                notification.innerHTML = '🎯 Tip: Scroll omlaag om alle enhanced features te zien!';
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 80px;
+                    right: 20px;
+                    background: #10b981;
+                    color: white;
+                    padding: 1rem;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+                    z-index: 2000;
+                    font-weight: 600;
+                    animation: slideIn 0.3s ease;
+                `;
+                
+                document.body.appendChild(notification);
+                
+                setTimeout(() => {
+                    notification.remove();
+                }, 5000);
+            }, 3000);
+        });
+        
+        // Add CSS animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
