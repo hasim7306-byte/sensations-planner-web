@@ -181,7 +181,7 @@ const Navbar = () => {
                 {item.icon} {item.name}
               </Link>
             ))}
-            <div className="border-t border-blue-600 pt-4">
+            <div className="border-t border-red-600 pt-4">
               <div className="px-3 py-2 text-sm text-blue-100">
                 {user?.name} ({user?.role})
               </div>
