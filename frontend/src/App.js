@@ -1304,10 +1304,10 @@ const EmployeesPage = () => {
                       </button>
                       {employee.id !== user.id && (
                         <button
-                          onClick={() => handleDeactivateUser(employee.id)}
+                          onClick={() => handleDeleteUser(employee.id)}
                           className="text-red-600 hover:text-red-900"
                         >
-                          Deactiveren
+                          Verwijderen
                         </button>
                       )}
                     </td>
