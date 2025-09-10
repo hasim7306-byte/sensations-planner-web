@@ -1111,19 +1111,19 @@ const EmployeesPage = () => {
     }
   };
 
-  const handleDeactivateUser = async (userId) => {
+  const handleDeleteUser = async (userId) => {
     if (user?.role !== 'admin') {
-      alert('Alleen admins kunnen gebruikers deactiveren');
+      alert('Alleen admins kunnen gebruikers verwijderen');
       return;
     }
 
-    if (window.confirm('Weet u zeker dat u deze gebruiker wilt deactiveren?')) {
+    if (window.confirm('Weet u zeker dat u deze gebruiker permanent wilt verwijderen?')) {
       try {
         await axios.delete(`${API}/users/${userId}`);
         fetchEmployees();
-        alert('Gebruiker gedeactiveerd!');
+        alert('Gebruiker verwijderd!');
       } catch (error) {
-        alert(error.response?.data?.detail || 'Fout bij deactiveren gebruiker');
+        alert(error.response?.data?.detail || 'Fout bij verwijderen gebruiker');
       }
     }
   };
