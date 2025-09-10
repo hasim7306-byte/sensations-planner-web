@@ -306,3 +306,5 @@ test_plan:
 agent_communication:
   - agent: "main"
     message: "Completed initial implementation of comprehensive workforce management system 'Senations To Go Planner'. All backend endpoints implemented with MongoDB integration, JWT auth, role-based access. Frontend built with React, Dutch interface, responsive design. Ready for backend testing to verify all API endpoints work correctly."
+  - agent: "main"
+    message: "Enhanced admin user management functionality - admins can now create, edit, and deactivate users through UI. Added POST /users, PUT /users/{id}, DELETE /users/{id} endpoints with proper role validation. Frontend includes user creation form, edit modal, and management actions."
