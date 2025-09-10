@@ -375,6 +375,19 @@
         setTimeout(() => {
             showToast('🎯 Klik op de "🔑 Wachtwoord" knoppen om de nieuwe functionaliteit te testen!', 'info');
         }, 3000);
+        
+        // Force browser cache refresh
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                for(let registration of registrations) {
+                    registration.unregister();
+                }
+            });
+        }
+        
+        // Add cache busting
+        const timestamp = new Date().getTime();
+        document.querySelector('title').textContent += ` - Updated ${timestamp}`;
     </script>
 </body>
 </html>
